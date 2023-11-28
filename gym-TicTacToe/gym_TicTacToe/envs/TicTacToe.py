@@ -84,10 +84,7 @@ class TicTacToeEnv(gym.Env):
     
     def step(self, action):
 
-        available_moves = self.get_available_moves()
-        num_moves = len(available_moves)
-
-        if action in available_moves:
+        if action in self.get_available_moves():
             self.board[action] = self.players_turn
         else:
             print("Invalid move:", action)
@@ -103,17 +100,17 @@ class TicTacToeEnv(gym.Env):
         # Player wins 
         if self._check_board() == 1: 
             terminated = True
-            reward = 2
+            reward = 4
         # Draw
-        elif num_moves == 1: 
+        elif len(self.get_available_moves()) == 1: 
             terminated = True
-            reward = 1
+            reward = 0
         else:
             terminated = False
-            reward = 0
+            reward = -1
 
         # Alternate player turn
-        self.players_turn = self.players_turn * -1
+        self.players_turn *= -1
 
         observation = self._get_obs()
         info = self._get_info()
