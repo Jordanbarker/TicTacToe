@@ -100,14 +100,14 @@ class TicTacToeEnv(gym.Env):
         # Player wins 
         if self._check_board() == 1: 
             terminated = True
-            reward = 4
+            reward = 1
         # Draw
         elif len(self.get_available_moves()) == 1: 
             terminated = True
-            reward = 0
+            reward = 0.25
         else:
             terminated = False
-            reward = -1
+            reward = -.25
 
         # Alternate player turn
         self.players_turn *= -1
